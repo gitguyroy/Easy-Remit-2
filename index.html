@@ -168,7 +168,7 @@
           <h4 class="text-2xl font-bold mb-4">Get in Touch</h4>
           <form id="googleSheetForm" class="space-y-4">
             <input type="text" name="name" placeholder="Your Name" class="border rounded px-2 py-2 w-full" required>
-            <input type="email" name="email" placeholder="Your Email" class="border rounded px-2 py-2 w-full" required>
+            <input type="text" name="phone" placeholder="Your Phone Number" class="border rounded px-2 py-2 w-full" required>
             <textarea name="message" placeholder="Your Message" class="border rounded px-2 py-2 w-full" required></textarea>
             <button type="submit" class="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:opacity-80 transition w-full">Submit</button>
           </form>
@@ -209,7 +209,7 @@
   <div id="thankYouPopup" class="flex">
     <div class="popup-content">
       <h4 class="text-2xl font-bold mb-4">🎉 Thank You!</h4>
-      <p>Your submission has been received. We will contact you soon.</p>
+      <p id="thankYouMessage">Your submission has been received. We will contact you soon.</p>
       <button id="closePopup" class="mt-6 bg-black text-white px-6 py-2 rounded hover:opacity-80 transition">Close</button>
     </div>
   </div>
@@ -226,11 +226,17 @@
     const form = document.getElementById('googleSheetForm');
     const thankYouPopup = document.getElementById('thankYouPopup');
     const closePopup = document.getElementById('closePopup');
+    const thankYouMessage = document.getElementById('thankYouMessage');
 
     form.addEventListener('submit', e => {
       e.preventDefault();
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      const formData = new FormData(form);
+      const name = formData.get('name');
+      const phone = formData.get('phone');
+
+      fetch(scriptURL, { method: 'POST', body: formData })
         .then(response => {
+          thankYouMessage.textContent = `Thank you, ${name}! We will contact you at ${phone} with the best exchange rates.`;
           thankYouPopup.style.display = 'flex';
           form.reset();
         })
