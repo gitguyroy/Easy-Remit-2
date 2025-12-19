@@ -1,556 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Remit - Global Money Transfer Made Easy</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Easy Remit - International Transfers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #000;
+      letter-spacing: 0.2px;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #000;
+    }
+    p, li, td, th, input, select, button, label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #000;
+    }
+    nav a,
+    .section-menu h4 {
+      font-family: 'IBM Plex Sans', sans-serif !important;
+      font-weight: 400;
+      position: relative;
+      color: #000;
+      transition: color 0.3s ease;
+    }
+    nav a::after,
+    .section-menu h4::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: #000;
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after,
+    .section-menu h4:hover::after {
+      width: 100%;
+    }
+    nav a:hover,
+    .section-menu h4:hover {
+      color: #555;
+    }
+    th {
+      font-weight: 700;
+      border: none !important;
+    }
 
-        /* Navigation */
-        nav {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .cta-button {
-            background: white;
-            color: #667eea;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        /* Currency Converter Section */
-        .converter-section {
-            background: #f9f9f9;
-            padding: 3rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .converter-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .converter-container h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #667eea;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .currency-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .convert-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: transform 0.3s;
-        }
-
-        .convert-button:hover {
-            transform: scale(1.02);
-        }
-
-        .result {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #f0f4ff;
-            border-left: 4px solid #667eea;
-            display: none;
-            border-radius: 5px;
-        }
-
-        .result.show {
-            display: block;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        /* How It Works Section */
-        .how-it-works {
-            padding: 3rem 2rem;
-            background: white;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .how-it-works h2 {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            color: #333;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .step {
-            text-align: center;
-            padding: 2rem;
-            border-radius: 10px;
-            background: #f9f9f9;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .step-number {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 50%;
-            line-height: 50px;
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .step h3 {
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .step p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        /* Form Section */
-        .form-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .form-section h2 {
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .contact-form .form-group label {
-            color: white;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            background: white;
-            color: #333;
-        }
-
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-button {
-            background: white;
-            color: #667eea;
-            padding: 0.75rem 2rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: transform 0.3s;
-        }
-
-        .submit-button:hover {
-            transform: scale(1.02);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .currency-row {
-                grid-template-columns: 1fr;
-            }
-
-            .steps-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    /* Popup Styles (Thank You, Login, Signup) */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none; /* Hidden by default */
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .popup-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 0.75rem;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      animation: popupScale 0.3s ease;
+      position: relative; /* For close button positioning */
+    }
+    @keyframes popupScale {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      color: #aaa;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+    }
+    .popup-close-btn:hover {
+      color: #333;
+    }
+  </style>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">Easy Remit</a>
-            <ul class="nav-links">
-                <li><a href="#converter">Converter</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+<body class="bg-[#fff5ed] text-black">
+
+  <!-- Navigation -->
+  <header class="border-b border-gray-200">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl font-bold">Easy Remit</h1>
+      <nav>
+        <ul class="flex space-x-6 text-lg">
+          <li><a href="#about" class="pb-1">About</a></li>
+          <li><a href="#contact" class="pb-1">Contact</a></li>
+          <li><a href="#" id="loginLink" class="pb-1">Login</a></li>
+          <li><a href="#" id="signupLink" class="pb-1">Signup</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-6xl mx-auto text-center py-16 px-4">
+    <h2 class="text-6xl font-extrabold mb-6 tracking-tight">Send Money Abroad at the Best Rates</h2>
+    <p class="text-xl font-medium mb-8 tracking-wide">
+      Fast, secure, and transparent international transfers.
+    </p>
+    <a href="#send" class="bg-black text-white px-8 py-4 rounded-lg font-semibold hover:opacity-80 transition">Get Started</a>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how" class="py-16 px-4 section-menu">
+    <div class="max-w-6xl mx-auto text-center">
+      <h3 class="text-4xl font-bold mb-12 tracking-tight">How It Works</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <h4 class="text-lg font-normal mb-3 tracking-tight">1. Sign Up</h4>
+          <p>Create your free account in minutes with simple verification.</p>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Global Money Transfer Made Easy</h1>
-        <p>Fast, secure, and transparent currency conversion at your fingertips</p>
-        <button class="cta-button" onclick="document.getElementById('converter').scrollIntoView({behavior: 'smooth'})">
-            Convert Now
-        </button>
-    </section>
-
-    <!-- Currency Converter Section -->
-    <section class="converter-section" id="converter">
-        <div class="converter-container">
-            <h2>Currency Converter</h2>
-            <form id="converterForm">
-                <div class="form-group">
-                    <label for="amount">Amount</label>
-                    <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
-                </div>
-
-                <div class="currency-row">
-                    <div class="form-group">
-                        <label for="fromCurrency">From</label>
-                        <select id="fromCurrency" name="fromCurrency" required>
-                            <option value="USD">USD - US Dollar</option>
-                            <option value="EUR">EUR - Euro</option>
-                            <option value="GBP">GBP - British Pound</option>
-                            <option value="JPY">JPY - Japanese Yen</option>
-                            <option value="CAD">CAD - Canadian Dollar</option>
-                            <option value="AUD">AUD - Australian Dollar</option>
-                            <option value="CHF">CHF - Swiss Franc</option>
-                            <option value="CNY">CNY - Chinese Yuan</option>
-                            <option value="INR">INR - Indian Rupee</option>
-                            <option value="MXN">MXN - Mexican Peso</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="toCurrency">To</label>
-                        <select id="toCurrency" name="toCurrency" required>
-                            <option value="USD">USD - US Dollar</option>
-                            <option value="EUR">EUR - Euro</option>
-                            <option value="GBP">GBP - British Pound</option>
-                            <option value="JPY">JPY - Japanese Yen</option>
-                            <option value="CAD">CAD - Canadian Dollar</option>
-                            <option value="AUD">AUD - Australian Dollar</option>
-                            <option value="CHF">CHF - Swiss Franc</option>
-                            <option value="CNY">CNY - Chinese Yuan</option>
-                            <option value="INR">INR - Indian Rupee</option>
-                            <option value="MXN">MXN - Mexican Peso</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button type="submit" class="convert-button">Convert</button>
-                <div class="result" id="result"></div>
-            </form>
+        <div>
+          <h4 class="text-lg font-normal mb-3 tracking-tight">2. Enter Details</h4>
+          <p>Fill in recipient details and the amount you want to send.</p>
         </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works">
-        <h2>How It Works</h2>
-        <div class="steps-grid">
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Enter Amount</h3>
-                <p>Input the amount you want to convert and select your currencies</p>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Get Real Rate</h3>
-                <p>Our system provides real-time exchange rates updated constantly</p>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Send Money</h3>
-                <p>Complete your transfer securely with our trusted partners</p>
-            </div>
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3>Track Status</h3>
-                <p>Monitor your transfer in real-time until it reaches the destination</p>
-            </div>
+        <div>
+          <h4 class="text-lg font-normal mb-3 tracking-tight">3. Send Money</h4>
+          <p>Confirm your transfer and we’ll handle the rest securely.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Form Section -->
-    <section class="form-section" id="contact">
-        <h2>Get in Touch</h2>
-        <form class="contact-form" id="contactForm">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name" required>
+  <!-- Currency Converter Section -->
+  <section id="converter" class="py-16 px-4">
+    <div class="max-w-6xl mx-auto">
+      <h3 class="text-4xl font-bold mb-8 tracking-tight text-center">Currency Converter</h3>
+
+      <!-- Currency Converter Form -->
+      <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <form id="converterForm" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block mb-1 font-semibold">From Currency</label>
+              <select class="border rounded px-2 py-2 w-full" name="fromCurrency">
+                <option>USD</option>
+                <option>GBP</option>
+                <option>EUR</option>
+                <option>INR</option>
+              </select>
             </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Your email" required>
+            <div>
+              <label class="block mb-1 font-semibold">To Currency</label>
+              <select class="border rounded px-2 py-2 w-full" name="toCurrency">
+                <option>INR</option>
+                <option>USD</option>
+                <option>GBP</option>
+                <option>EUR</option>
+              </select>
             </div>
-
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Your message" required></textarea>
-            </div>
-
-            <button type="submit" class="submit-button">Send Message</button>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold">Amount</label>
+            <input type="number" name="amount" placeholder="Enter amount" class="border rounded px-2 py-2 w-full">
+          </div>
+          <button type="button" id="convertBtn" class="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:opacity-80 transition w-full">Convert</button>
         </form>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Easy Remit. All rights reserved.</p>
-    </footer>
+        <!-- Contact Form (hidden initially) -->
+        <div id="contactForm" class="hidden mt-6">
+          <h4 class="text-2xl font-bold mb-4">Get in Touch</h4>
+          <form id="googleSheetForm" class="space-y-4">
+            <input type="text" name="name" placeholder="Your Name" class="border rounded px-2 py-2 w-full" required>
+            <input type="text" name="phone" placeholder="Your Phone Number" class="border rounded px-2 py-2 w-full" required>
+            <textarea name="message" placeholder="Your Message" class="border rounded px-2 py-2 w-full" required></textarea>
+            <button type="submit" class="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:opacity-80 transition w-full">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Currency Converter Form Handler
-        document.getElementById('converterForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const amount = document.getElementById('amount').value;
-            const fromCurrency = document.getElementById('fromCurrency').value;
-            const toCurrency = document.getElementById('toCurrency').value;
+  <!-- Why Choose Us -->
+  <section id="about" class="py-16 px-4 section-menu">
+    <div class="max-w-6xl mx-auto text-center">
+      <h3 class="text-4xl font-bold mb-12 tracking-tight">Why Choose Us</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <h4 class="text-lg font-normal mb-3 tracking-tight">Best Exchange Rates</h4>
+          <p>We offer market-leading rates.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-normal mb-3 tracking-tight">Secure Transfers</h4>
+          <p>Your money and data are protected with bank-grade security.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-normal mb-3 tracking-tight">Fast Delivery</h4>
+          <p>Funds reach your recipient within hours, not days.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            // Create FormData object
-            const formData = new FormData();
-            formData.append('amount', amount);
-            formData.append('fromCurrency', fromCurrency);
-            formData.append('toCurrency', toCurrency);
+  <!-- Footer -->
+  <footer id="contact" class="bg-gray-50 text-black py-8">
+    <div class="max-w-6xl mx-auto text-center">
+      <p>© 2025 Easy Remit. All rights reserved.</p>
+    </div>
+  </footer>
 
-            // Send to Google Sheets
-            fetch('https://script.google.com/macros/s/AKfycby98C0kB6N4c091Hn-c25mU56JzMLUKX5sHbzO854ICxts2hIq9E3Ymwaq9MYMl2b0g/exec', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = `<strong>${amount} ${fromCurrency} = ${data} ${toCurrency}</strong>`;
-                resultDiv.classList.add('show');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = '<strong>Error fetching conversion rate. Please try again.</strong>';
-                resultDiv.classList.add('show');
-            });
-        });
+  <!-- Thank You Popup -->
+  <div id="thankYouPopup" class="popup-overlay">
+    <div class="popup-content">
+      <button class="popup-close-btn" id="closeThankYouPopup">&times;</button>
+      <h4 class="text-2xl font-bold mb-4">🎉 Thank You!</h4>
+      <p id="thankYouMessage">Your submission has been received. We will contact you soon.</p>
+      <button id="closePopup" class="mt-6 bg-black text-white px-6 py-2 rounded hover:opacity-80 transition">Close</button>
+    </div>
+  </div>
 
-        // Contact Form Handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+  <!-- Login Popup -->
+  <div id="loginPopup" class="popup-overlay">
+    <div class="popup-content">
+      <button class="popup-close-btn" id="closeLoginPopup">&times;</button>
+      <h4 class="text-2xl font-bold mb-4">Login to Easy Remit</h4>
+      <form class="space-y-4">
+        <input type="email" placeholder="Email" class="border rounded px-2 py-2 w-full" required>
+        <input type="password" placeholder="Password" class="border rounded px-2 py-2 w-full" required>
+        <button type="submit" class="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:opacity-80 transition w-full">Login</button>
+      </form>
+      <p class="mt-4 text-sm">Don't have an account? <a href="#" id="switchToSignup" class="text-blue-600 hover:underline">Sign up</a></p>
+    </div>
+  </div>
 
-            // Create FormData object
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('message', message);
+  <!-- Signup Popup -->
+  <div id="signupPopup" class="popup-overlay">
+    <div class="popup-content">
+      <button class="popup-close-btn" id="closeSignupPopup">&times;</button>
+      <h4 class="text-2xl font-bold mb-4">Sign Up for Easy Remit</h4>
+      <form class="space-y-4">
+        <input type="text" placeholder="Full Name" class="border rounded px-2 py-2 w-full" required>
+        <input type="email" placeholder="Email" class="border rounded px-2 py-2 w-full" required>
+        <input type="password" placeholder="Password" class="border rounded px-2 py-2 w-full" required>
+        <input type="password" placeholder="Confirm Password" class="border rounded px-2 py-2 w-full" required>
+        <button type="submit" class="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:opacity-80 transition w-full">Sign Up</button>
+      </form>
+      <p class="mt-4 text-sm">Already have an account? <a href="#" id="switchToLogin" class="text-blue-600 hover:underline">Login</a></p>
+    </div>
+  </div>
 
-            // Send to Google Sheets
-            fetch('https://script.google.com/macros/s/AKfycby98C0kB6N4c091Hn-c25mU56JzMLUKX5sHbzO854ICxts2hIq9E3Ymwaq9MYMl2b0g/exec', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert('Message sent successfully!');
-                document.getElementById('contactForm').reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error sending message. Please try again.');
-            });
-        });
-    </script>
+  <script>
+    // Show contact form after Convert
+    document.getElementById('convertBtn').addEventListener('click', function() {
+      document.getElementById('contactForm').classList.remove('hidden');
+      document.getElementById('contactForm').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Google Sheets form submission demo with popup
+    const scriptURL = "YOUR_GOOGLE_APPS_SCRIPT_URL"; // Replace with deployed Google Apps Script URL
+    const form = document.getElementById('googleSheetForm');
+    const thankYouPopup = document.getElementById('thankYouPopup');
+    const closeThankYouPopupBtn = document.getElementById('closeThankYouPopup'); // Changed ID
+    const closePopupBtn = document.getElementById('closePopup'); // Existing close button
+    const thankYouMessage = document.getElementById('thankYouMessage');
+    const contactFormContainer = document.getElementById('contactForm');
+    const amountInput = document.querySelector('input[name="amount"]');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const name = formData.get('name');
+      const phone = formData.get('phone');
+
+      // For demonstration purposes, we'll just show the popup.
+      // In a real application, you'd perform the fetch to Google Sheets here.
+      console.log('Submitting to Google Sheets:', Object.fromEntries(formData.entries()));
+
+      thankYouMessage.textContent = `Thank you, ${name}! We will contact you at ${phone} with the best exchange rates.`;
+      thankYouPopup.style.display = 'flex';
+      // Remove the contact form permanently (including its container)
+      contactFormContainer.innerHTML = '';
+
+      // Original fetch logic (uncomment and replace scriptURL for actual use)
+      /*
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+          thankYouMessage.textContent = `Thank you, ${name}! We will contact you at ${phone} with the best exchange rates.`;
+          thankYouPopup.style.display = 'flex';
+          contactFormContainer.innerHTML = '';
+        })
+        .catch(error => console.error('Error!', error.message));
+      */
+    });
+
+    closeThankYouPopupBtn.addEventListener('click', () => {
+      thankYouPopup.style.display = 'none';
+      if (amountInput) amountInput.value = "";
+    });
+
+    closePopupBtn.addEventListener('click', () => { // Keep existing close button functionality
+      thankYouPopup.style.display = 'none';
+      if (amountInput) amountInput.value = "";
+    });
+
+
+    // Login and Signup Popup Logic
+    const loginLink = document.getElementById('loginLink');
+    const signupLink = document.getElementById('signupLink');
+    const loginPopup = document.getElementById('loginPopup');
+    const signupPopup = document.getElementById('signupPopup');
+    const closeLoginPopup = document.getElementById('closeLoginPopup');
+    const closeSignupPopup = document.getElementById('closeSignupPopup');
+    const switchToSignup = document.getElementById('switchToSignup');
+    const switchToLogin = document.getElementById('switchToLogin');
+
+    function openPopup(popup) {
+      popup.style.display = 'flex';
+    }
+
+    function closePopup(popup) {
+      popup.style.display = 'none';
+    }
+
+    loginLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPopup(loginPopup);
+    });
+
+    signupLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPopup(signupPopup);
+    });
+
+    closeLoginPopup.addEventListener('click', () => {
+      closePopup(loginPopup);
+    });
+
+    closeSignupPopup.addEventListener('click', () => {
+      closePopup(signupPopup);
+    });
+
+    switchToSignup.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePopup(loginPopup);
+      openPopup(signupPopup);
+    });
+
+    switchToLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePopup(signupPopup);
+      openPopup(loginPopup);
+    });
+
+    // Close popups when clicking outside of them
+    window.addEventListener('click', (e) => {
+      if (e.target === loginPopup) {
+        closePopup(loginPopup);
+      }
+      if (e.target === signupPopup) {
+        closePopup(signupPopup);
+      }
+      if (e.target === thankYouPopup) {
+        closePopup(thankYouPopup);
+      }
+    });
+
+  </script>
+
+<script>
+  async function trackVisitor() {
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby98C0kB6N4c091Hn-c25mU56JzMLUKX5sHbzO854ICxts2hIq9E3Ymwaq9MYMl2b0g/exec"; // PASTE YOUR URL HERE
+
+    try {
+      // 1. (Optional) Get IP address using a free API
+      const ipResponse = await fetch('https://api.ipify.org?format=json');
+      const ipData = await ipResponse.json();
+
+      // 2. Prepare data
+      const visitorData = {
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        ip: ipData.ip
+      };
+
+      // 3. Send data to Google Sheet
+      // We use 'text/plain' to avoid complex CORS preflight checks
+      fetch(WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Tells browser not to worry about security headers
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(visitorData)
+      });
+      
+    } catch (error) {
+      console.log("Tracking error:", error);
+    }
+  }
+
+  // Run the function when page loads
+  trackVisitor();
+</script>  
 </body>
 </html>
