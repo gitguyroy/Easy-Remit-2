@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Remit</title>
+    <title>Easy Remit - Global Money Transfer Made Easy</title>
     <style>
         * {
             margin: 0;
@@ -13,231 +13,542 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 500px;
-            padding: 40px;
-        }
-
-        h1 {
+            line-height: 1.6;
             color: #333;
-            margin-bottom: 30px;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
             text-align: center;
-            font-size: 28px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Currency Converter Section */
+        .converter-section {
+            background: #f9f9f9;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .converter-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .converter-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #667eea;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
 
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #555;
+            margin-bottom: 0.5rem;
             font-weight: 500;
+            color: #333;
         }
 
-        input,
-        select,
-        textarea {
+        .form-group input,
+        .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
             border-radius: 5px;
-            font-size: 14px;
-            font-family: inherit;
+            font-size: 1rem;
             transition: border-color 0.3s;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
+        .currency-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
+        .convert-button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.3s;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .convert-button:hover {
+            transform: scale(1.02);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
-        .success-message {
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
             display: none;
-            background: #4caf50;
-            color: white;
-            padding: 15px;
             border-radius: 5px;
-            margin-bottom: 20px;
+        }
+
+        .result.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 3rem 2rem;
+            background: white;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            background: #f9f9f9;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .step p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
             text-align: center;
         }
 
-        .error-message {
-            display: none;
-            background: #f44336;
+        .form-section h2 {
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form .form-group label {
             color: white;
-            padding: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            background: white;
+            color: #333;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            background: white;
+            color: #667eea;
+            padding: 0.75rem 2rem;
+            border: none;
             border-radius: 5px;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.02);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
             text-align: center;
+            padding: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .currency-row {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Easy Remit</h1>
-        <div class="success-message" id="successMessage">Form submitted successfully!</div>
-        <div class="error-message" id="errorMessage">Error submitting form. Please try again.</div>
-        
-        <form id="remitForm">
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Easy Remit</a>
+            <ul class="nav-links">
+                <li><a href="#converter">Converter</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Global Money Transfer Made Easy</h1>
+        <p>Fast, secure, and transparent currency conversion at your fingertips</p>
+        <button class="cta-button" onclick="document.getElementById('converter').scrollIntoView({behavior: 'smooth'})">
+            Convert Now
+        </button>
+    </section>
+
+    <!-- Currency Converter Section -->
+    <section class="converter-section" id="converter">
+        <div class="converter-container">
+            <h2>Currency Converter</h2>
+            <form id="converterForm">
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+                </div>
+
+                <div class="currency-row">
+                    <div class="form-group">
+                        <label for="fromCurrency">From</label>
+                        <select id="fromCurrency" name="fromCurrency" required>
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                            <option value="CHF">CHF - Swiss Franc</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                            <option value="INR">INR - Indian Rupee</option>
+                            <option value="MXN">MXN - Mexican Peso</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="toCurrency">To</label>
+                        <select id="toCurrency" name="toCurrency" required>
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                            <option value="CHF">CHF - Swiss Franc</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                            <option value="INR">INR - Indian Rupee</option>
+                            <option value="MXN">MXN - Mexican Peso</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="convert-button">Convert</button>
+                <div class="result" id="result"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Enter Amount</h3>
+                <p>Input the amount you want to convert and select your currencies</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Get Real Rate</h3>
+                <p>Our system provides real-time exchange rates updated constantly</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Send Money</h3>
+                <p>Complete your transfer securely with our trusted partners</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Track Status</h3>
+                <p>Monitor your transfer in real-time until it reaches the destination</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="form-section" id="contact">
+        <h2>Get in Touch</h2>
+        <form class="contact-form" id="contactForm">
             <div class="form-group">
-                <label for="senderName">Sender Name:</label>
-                <input type="text" id="senderName" name="senderName" required>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
             </div>
 
             <div class="form-group">
-                <label for="senderPhone">Sender Phone Number:</label>
-                <input type="tel" id="senderPhone" name="senderPhone" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email" required>
             </div>
 
             <div class="form-group">
-                <label for="senderEmail">Sender Email:</label>
-                <input type="email" id="senderEmail" name="senderEmail" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your message" required></textarea>
             </div>
 
-            <div class="form-group">
-                <label for="senderCountry">Sender Country:</label>
-                <select id="senderCountry" name="senderCountry" required>
-                    <option value="">Select Country</option>
-                    <option value="United States">United States</option>
-                    <option value="Canada">Canada</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="Australia">Australia</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="recipientName">Recipient Name:</label>
-                <input type="text" id="recipientName" name="recipientName" required>
-            </div>
-
-            <div class="form-group">
-                <label for="recipientPhone">Recipient Phone Number:</label>
-                <input type="tel" id="recipientPhone" name="recipientPhone" required>
-            </div>
-
-            <div class="form-group">
-                <label for="recipientEmail">Recipient Email:</label>
-                <input type="email" id="recipientEmail" name="recipientEmail" required>
-            </div>
-
-            <div class="form-group">
-                <label for="recipientCountry">Recipient Country:</label>
-                <select id="recipientCountry" name="recipientCountry" required>
-                    <option value="">Select Country</option>
-                    <option value="Jamaica">Jamaica</option>
-                    <option value="Trinidad and Tobago">Trinidad and Tobago</option>
-                    <option value="Barbados">Barbados</option>
-                    <option value="Guyana">Guyana</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="amount">Amount:</label>
-                <input type="number" id="amount" name="amount" step="0.01" required>
-            </div>
-
-            <div class="form-group">
-                <label for="currency">Currency:</label>
-                <select id="currency" name="currency" required>
-                    <option value="">Select Currency</option>
-                    <option value="USD">USD</option>
-                    <option value="CAD">CAD</option>
-                    <option value="GBP">GBP</option>
-                    <option value="AUD">AUD</option>
-                    <option value="JMD">JMD</option>
-                    <option value="TTD">TTD</option>
-                    <option value="BBD">BBD</option>
-                    <option value="GYD">GYD</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="notes">Additional Notes:</label>
-                <textarea id="notes" name="notes"></textarea>
-            </div>
-
-            <button type="submit">Submit</button>
+            <button type="submit" class="submit-button">Send Message</button>
         </form>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Easy Remit. All rights reserved.</p>
+    </footer>
 
     <script>
-        const form = document.getElementById('remitForm');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
+        // Currency Converter Form Handler
+        document.getElementById('converterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const amount = document.getElementById('amount').value;
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
+            // Create FormData object
+            const formData = new FormData();
+            formData.append('amount', amount);
+            formData.append('fromCurrency', fromCurrency);
+            formData.append('toCurrency', toCurrency);
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-
+            // Send to Google Sheets
             fetch('https://script.google.com/macros/s/AKfycby98C0kB6N4c091Hn-c25mU56JzMLUKX5sHbzO854ICxts2hIq9E3Ymwaq9MYMl2b0g/exec', {
                 method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                body: formData
             })
-            .then(response => response.json())
-            .then(result => {
-                successMessage.style.display = 'block';
-                errorMessage.style.display = 'none';
-                form.reset();
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 3000);
+            .then(response => response.text())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `<strong>${amount} ${fromCurrency} = ${data} ${toCurrency}</strong>`;
+                resultDiv.classList.add('show');
             })
             .catch(error => {
                 console.error('Error:', error);
-                errorMessage.style.display = 'block';
-                successMessage.style.display = 'none';
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 3000);
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '<strong>Error fetching conversion rate. Please try again.</strong>';
+                resultDiv.classList.add('show');
+            });
+        });
+
+        // Contact Form Handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Create FormData object
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('message', message);
+
+            // Send to Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycby98C0kB6N4c091Hn-c25mU56JzMLUKX5sHbzO854ICxts2hIq9E3Ymwaq9MYMl2b0g/exec', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert('Message sent successfully!');
+                document.getElementById('contactForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error sending message. Please try again.');
             });
         });
     </script>
