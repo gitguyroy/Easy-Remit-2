@@ -379,5 +379,39 @@
     });
 
   </script>
+
+<script>
+  async function trackVisitor() {
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby98C0kB6N4c091Hn-c25mU56JzMLUKX5sHbzO854ICxts2hIq9E3Ymwaq9MYMl2b0g/exec"; // PASTE YOUR URL HERE
+
+    try {
+      // 1. (Optional) Get IP address using a free API
+      const ipResponse = await fetch('https://api.ipify.org?format=json');
+      const ipData = await ipResponse.json();
+
+      // 2. Prepare data
+      const visitorData = {
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        ip: ipData.ip
+      };
+
+      // 3. Send data to Google Sheet
+      // We use 'text/plain' to avoid complex CORS preflight checks
+      fetch(WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Tells browser not to worry about security headers
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(visitorData)
+      });
+      
+    } catch (error) {
+      console.log("Tracking error:", error);
+    }
+  }
+
+  // Run the function when page loads
+  trackVisitor();
+</script>  
 </body>
 </html>
